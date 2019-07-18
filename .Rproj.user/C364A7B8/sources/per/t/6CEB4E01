@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1563443599605.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2182534400",
+    "id" : "6CEB4E01",
+    "lastKnownWriteTime" : 1563453346,
+    "last_content_update" : 1563453346310,
+    "path" : "~/Documents/RStudio/TextTrump/Presentation.Rpres",
+    "project_path" : "Presentation.Rpres",
+    "properties" : {
+        "cursorPosition" : "209,144",
+        "scrollLine" : "184"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_presentation"
+}

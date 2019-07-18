@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1563453721862.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2957683630",
+    "id" : "6D1E0E3C",
+    "lastKnownWriteTime" : 1563454021,
+    "last_content_update" : 1563454021498,
+    "path" : "~/Documents/RStudio/TextTrump/TextMiningTutorial.Rmd",
+    "project_path" : "TextMiningTutorial.Rmd",
+    "properties" : {
+        "cursorPosition" : "1,13",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

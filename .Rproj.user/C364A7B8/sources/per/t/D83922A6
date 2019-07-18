@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1563453734275.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2643144449",
+    "id" : "D83922A6",
+    "lastKnownWriteTime" : 1563454030,
+    "last_content_update" : 1563454030,
+    "path" : "~/Documents/RStudio/TextTrump/00_TextMiningScript.R",
+    "project_path" : "00_TextMiningScript.R",
+    "properties" : {
+        "cursorPosition" : "104,30",
+        "scrollLine" : "97"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
