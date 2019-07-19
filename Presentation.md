@@ -6,11 +6,17 @@ autosize: true
 
 Who am I?
 ========================================================
-
-- Landscape/survey archaeologist (SE Europe, SE Australia)
-- eResearch infrastructure domain expert (FAIMS,offline human mediated data collection)
+left: 70%
+- Landscape/survey archaeologist
+- eResearch infrastructure development in Australia (FAIMS project, offline human mediated data collection)
 - Software Carpentry instructor
-- Digital historian (I am faking this one :)
+- Digital historian in Aarhus, Denmark
+- https://github.com/adivea 
+
+***
+
+![alt text](images/Adela.png)
+
 
 
 What [and how] are we going to learn this week?
@@ -25,17 +31,87 @@ The schedule loosely follows the Carpentries curriculum. The Carpentries teach f
 
 The hands-on approach relies on the data-science notion of “hacking” (not “cracking”). We learn best together, by following templates, experimenting, and by working on our own projects.
 
+https://adivea.github.io/2019-07-22-OX-LC
+
 ***
 ![alt text](images/TheCarpentries.png)
 ![alt text](images/SClogo.png)
 ![alt text](images/LClogo.png)
 
+
+What do you mean by a 'digital archive'? Language Games
+========================================================
+![alt text](images/terminology.png)
+
+https://xkcd.com/503/ 
+
  
+What do you mean by a 'digital archive'? Jargon Busting
+========================================================
+Let's get a firmer grasp on the concepts around data, code or software development 
+
+Task 1: 
+- Pair with a neighbour and decide who takes notes 
+- Talk for 3 minutes (your instructor will be timing you!) on any terms, phrases, or ideas around code or software development that you’ve come across and perhaps feel you should know better.
+- Next, get into groups of 4-6.
+- Make a list of all the problematic terms, phrases, and ideas each pair came up with. Retain duplicates.
+- Identify common words as a starting point - spend 10 minutes working together to try to explain what the terms, phrases, or ideas on your list mean. Note: use both each other and the internet as a resource.
+- Identify the terms your groups resolves as well as those you are still struggling with.
+- Each group then reports back on one issue resolved by their group and one issue not resolved by their group.
+- Let's discuss
+
+ 
+
+Don’t think you work with data? Think again
+========================================================
+
+Task 1:
+- Brainstorm all the different sorts of data you work with (examples might include metadata, catalogue data, legacy data, data ouptut from DROID etc.)
+- Discuss your own data, trying to answer questions including; How much data do you have? Where is it stored? Who has access to it? How is it formatted or stored? Can you move it about easily - in and out of systems? In particular think about the tools you use to help you manage your data as well as any problems you have with it.
+
+Task 2:
+- select representative example of data you discussed previously
+- map the lifecycle of a data point from the moment of creation to its long-term home or to disposition (long term transfer, destruction, etc.)
+- Discuss: How many people or organizations have been custodians of the data? How many systems has it moved through? Is there a relationship between the individual(s) creating the data and those who make preservation or disposition decisions? How does the lifecycle of the dataset impact documentation, metadata, or the data itself?
+
+
+
+Computers are stupid
+========================================================
+.. but they don't get tired.
+
+People interpret. Machines don't. 
+Computer only does what you tell it to. If it throws up an error it is often not your fault, rather in most cases the computer has failed to interpret what you mean because it can only work with what it knows (ergo, it is bad at interpreting).
+
+*** 
+
+![alt text](images/tasks1425.png)
+
+https://xkcd.com/1425/
+
+
+Regular Expressions
+========================================================
+Regular Expressions (regexes) are a powerful way to handle a multitude of different types of data. They can be used to find patterns in text and make sophisticated replacements. Think of them as find and replace on steroids. Come along to this workshop to learn what they can do and how to apply them to your research.
+
+***
+
+![alt text](images/regular_expressions.png)
+https://xkcd.com/208
 
 Data in Spreadsheets
 ========================================================
 
-Although huge quantities of data today are born digitally, most of us (including programming wizards) still work with data in spreadsheets. Handling and managing spreadsheets is the bread and butter of data work  today, so we'll look over and brainstorm some tipcs to avoid unnecessary blunders.
+Although huge quantities of data today are born digitally, most of us (including programming wizards) still work with data in spreadsheets. Handling and managing spreadsheets is the bread and butter of data work today, so we'll go over some time- and effort- saving tips.
+
+
+Tidy Data
+========================================================
+- each variable forms a column
+- each observation forms a row
+- each type of observational unit forms a table
+
+Hadley Wickham, *Tidy Data*
 
 
 Data Cleaning - Open Refine
@@ -141,6 +217,16 @@ For anyone intending to develop core competency as a data savvy staffer, i.e. be
 ***
 ![alt text](images/Rlogo.png)
 
+
+What about alternatives
+========================================================
+They are also great. Go for them if you have the skills or support!
+
+![alt text](images/python_environment.png)
+
+https://xkcd.com/1987/
+
+
 Introduction to R - The Narrative :)
 ========================================================
 R has become and tool of choice for data science explorations. R - a statistical programming language - and Tidyverse - a consistent way of applying and learning data science - are an excellent toolkit that can can be broadly applied when producing (and documenting) data summation projects. This toolkit is an excellent option for advanced beginners to advanced intermediates. For one, you can build on all that you learn, rather than have to learn 12 different applications. Additionally, R as a tool, along with version control, lends itself to reproducibility, portfolio building, on the way writing reports in various formats (MS Word, PPT, slides, web pages, blogs, dashboards, PDF, etc.). As you become engaged with these best practices you will spend less time on the data science and more time engaging with the data. You’ll write various reports from one script (web scrape, web publishing, PDF docs) by employing extensible data savvy techniques. While R (or Python) can have a steep learning curve, the tool will carry a data miner farther than entry level tools – which, while designed for easy of use, quickly reach an efficiency barrier). What better to use scalable techniques that were built for sharing, documentation, reproducibility, openness, and collaboration.
@@ -150,21 +236,22 @@ Text Mining with R
 ========================================================
 right: 30%
 One of the features of humanistic datasets is that these are often unstructured and text-heavy.
-In addition to handling tabular and rectangular data; therefore, many of us need to understand how computers handle natural language.
+In addition to handling tabular and rectangular data; therefore, many of us need to understand how computers handle natural language. We will explore quantitative text analysis with [*tm* package] (https://cran.r-project.org/web/packages/tm/vignettes/tm.pdf)
 
-Lots of packages exist in R to help:
-- tidytext
-- tokenizers
-- quanteda
+Other R packages exist to help with text analysis:
+- corpus
+- [tidytext] (https://www.tidytextmining.com/index.html)
+- [tokenizers] (https://programminghistorian.org/en/lessons/basic-text-processing-in-r#learning-goals)
+- [quanteda] (https://quanteda.io/)
 
-This section will serve as an introduction to text mining. We will discuss the difference between the tidytext approach and other tidy tools in R.
+This section will serve as an introduction to text mining. We will do a quick exercise and discuss the difference between the different approaches and tools. Here are some official [mappings of the differences] (https://quanteda.io/articles/pkgdown/comparison.html) and [examples of use] (https://rpubs.com/Custer/text_exploration).
 
 ***
 ![alt text](images/SilgeRobinson.png)
 
 
 
-Tidy data
+Tidy data > Tidy text
 ========================================================
 Using tidy data principles is a powerful way to make handling data easier and more effective, and this is no less true when it comes to dealing with text. As described by Hadley Wickham (Wickham 2014), tidy data has a specific structure:
 
@@ -174,7 +261,7 @@ Using tidy data principles is a powerful way to make handling data easier and mo
 
 We thus define the tidy text format as being a table with **one-token-per-row**. A token is a meaningful unit of text, such as a word, that we are interested in using for analysis, and tokenization is the process of splitting text into tokens.
 
-Tidy data example
+Tidy text example
 ========================================================
 Emily Dickinson wrote some lovely text in her time.
 
@@ -235,18 +322,46 @@ text_df %>%
 Tidy text vs. other data structures 
 ========================================================
 
-Tidy text (**one-token-per-row**) is worth contrasting with the ways text is often stored in text mining approaches.
+Tidytext packages stores text data in a dataframe (**one-token-per-row**), which contrasts with the ways text is often stored in other text mining approaches.
 
 - **String**: Text can, of course, be stored as strings, i.e., character vectors, within R, and often text data is first read into memory in this form.
 - **Corpus**: These types of objects typically contain raw strings annotated with additional metadata and details.
 - **Document-term matrix**: This is a sparse matrix describing a collection (i.e., a corpus) of documents with one row for each document and one column for each term. The value in the matrix is typically word count.
 
 
-Our approach 
+Tidy text workflow 
 ========================================================
-Silge & Robinson (2019) provide a fantastic scaffolding for learners who wish to work with tidytext on well-formed example texts such as novels in the Gutenberg project or R-packaged versions of J. Austen texts. 
-I assume you will be working with whatever unfancy data your colleagues OCR-ed in a far-flung archive and sent to you for processing. So let's learn how to deal with the messy data first.
-
 ![alt text](images/tidyflow.png)
 
 A flowchart of a typical text analysis using tidy data principles (after Silge and Robinson, Fig.1.1)
+
+
+Silge & Robinson (2019) provide a fantastic scaffolding for learners who wish to work with tidytext on well-formed example texts such as novels in the Gutenberg project or R-packaged versions of J. Austen texts. Tidytext package builds on tidyverse, which has more elegant data wrangling tools, but you'll think it's nice only if you already know it (see text pre-processing [differences](https://janzilinsky.com/pre-processing-text-data-in-r/))
+
+
+Today's approach
+========================================================
+
+*tm* is a text-mining framework that uses corpus as the main data structure. It is built on base R, not tidyverse. 
+It can deal with messy data you OCR-ed in a far-flung archive. Once you learn one package, understanding the next is easy as pie.
+
+URL for text mining
+
+Trump speeches in R
+
+
+Additional Resources
+========================================================
+- [Election speeches in Australia] (https://electionspeeches.moadoph.gov.au/explore)
+- [The Difficulies of My position"; the diaries of Prison Governor John Buckley Castieau, 1855-1884](http://nla.gov.au/nla.obj-5684781/view?partId=nla.obj-5685532#page/n7/mode/1up)
+- [Processing Obama speeches in R] https://programminghistorian.org/en/lessons/basic-text-processing-in-r#learning-goals
+
+Text mining with Python:
+- https://programminghistorian.org/en/lessons/text-mining-with-extracted-features 
+- https://programminghistorian.org/en/lessons/analyzing-documents-with-tfidf
+
+Other tools especially for historical texts:
+- [Tesserae](https://github.com/tesserae) - for exploring intertextuality
+- [Tracer](https://www.etrap.eu/research/tracer/) - suite of 700 algorithms for text analysis
+- [Language Analysis Tool](https://github.com/jiemakel/las) - CLI tool for lemmatizing, morphological analysis, inflected form generation, hyphenation and language identification of multiple languages.
+...

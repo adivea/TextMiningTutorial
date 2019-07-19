@@ -34,9 +34,9 @@ enter "a" and press return
 Start by saving your text files in a folder titled:    "texts"
 This will be the "corpus" (body) of texts you are mining.
 
+Note: The texts used in this example are a few of Donald Trump’s speeches that were copied and pasted into a text document. You can use a variety of media for this, such as PDF and HTML. The text example was chosen out of curiosity. If you would like to use these same texts, you can [download them here](https://drive.google.com/drive/folders/0B914dXn0AXvlaWhmVXdPclZrTjA).
+
 Next, choose the type of computer you have...
-
-
 
 *On a Mac*, save the folder to your *desktop* and use the following code chunk:
 
@@ -58,7 +58,7 @@ dir(cname)
 ```
 
 ##########################################################################################
-#                                Start Your Analyses                                     #
+#                                Start Analysing                                  #
 ##########################################################################################
 Load the R package for text mining and then load your texts into R.
 ```{r}
@@ -88,7 +88,7 @@ for (j in seq(docs)) {
 Clean up text from numbers, capitals, whitespaces and unwanted words 
 
 ```{r}
-docs <- tm_map(docs,removePunctuation)   
+docs <- tm_map(docs, removePunctuation)   
 docs <- tm_map(docs, removeNumbers)   
 docs <- tm_map(docs, tolower)   
 docs <- tm_map(docs, removeWords, stopwords("english"))   
@@ -97,20 +97,31 @@ docs <- tm_map(docs, stripWhitespace)
 docs <- tm_map(docs, PlainTextDocument)
 ```
 
-# *This is the end of the preprocessing stage.*   
+*This should be the end of the preprocessing stage.*  Let's use the writeLines() function to look at the text again. 
 ```{r}
 writeLines(as.character(docs[1]))
 ```
+If there are additional issues, return to the data cleaning code chunks above and clean to your heart's desire.
 
-## Stage the Data    
+## Stage the Data   
+Now that we have a reasonably clean corpus of texts, we will now create a document term matrix. We will be using the dtm object from this point on.
 ```{r}
 dtm <- DocumentTermMatrix(docs)   
-tdm <- TermDocumentMatrix(docs)   
+tdm <- TermDocumentMatrix(docs)   # this is a transposed document term matrix
+```
+
+To inspect these objects, you can use: inspect(dtm)
+This will, however, fill up your terminal quickly. So you may prefer to view a subset:
+```{r eval = FALSE}
+inspect(dtm[1:5, 1:20]) # view first 5 docs & first 20 terms - modify as you like
+dim(dtm) #This will display the number of documents & terms (in that order)
+
 ```
 
 
 ## Explore your data
 
+Organize terms by their frequency
 ```{r}
 freq <- colSums(as.matrix(dtm))   
 length(freq)   
@@ -128,34 +139,47 @@ write.csv(m, file="DocumentTermMatrix.csv")
    
    
 
-# Let's focus on the interesting stuff...;)
+### If you wish to focus on just the interesting stuff..
 
-Start by removing sparse terms:   
+Start by removing sparse terms. The ‘removeSparseTerms()’ function will remove the infrequently used words, leaving only the most well-used words in the corpus.  
 
 ```{r}
 dtms <- removeSparseTerms(dtm, 0.1) # This makes a matrix that is 10% empty space, maximum.  
 ```
 
 
-## Calculate Word Frequency   
+## Calculate Word Frequency  
+There are a lot of terms, so for now, just check out some of the most and least frequently occurring words.
+
+```{r}
+freq <- colSums(as.matrix(dtm))
+```
+
+Check out the frequency of frequencies.
+The ‘colSums()’ function generates a table reporting how often each word frequency occurs. Using the ’head()" function, below, we can see the distribution of the least-frequently used words.
 ```{r}
 head(table(freq), 20) 
 ```
 The above output is two rows of numbers. The top number is the frequency with which
-words appear and the bottom number reflects how many words appear that frequently.
+words appear and the bottom number reflects how many words appear that frequently. Here, considering only the 20 lowest word frequencies, we can see that 1634 terms appear only once (your number may vary depending on how you cleaned your texts). There are also a lot of others that appear very infrequently.
 
 ```{r}
 tail(table(freq), 20) 
 ```
-Considering only the 20 greatest frequencies
+Considering only the 20 greatest frequencies, we can see that there is a huge disparity in how frequently some terms appear.
 
+For a **less fine-grained look** at term freqency we can view a table of the terms we selected when we removed sparse terms, above. (Look just under the heading “If you wish to focus”.)
 
-View a table of the terms after removing sparse terms, as above.
 ```{r}
 freq <- colSums(as.matrix(dtms))   
 freq 
 ```
-The above matrix was created using a data transformation we made earlier. 
+The above matrix was created using a data transformation we made earlier. What follows is an alternative that will accomplish essentially the same thing.
+
+```{r}
+freq <- sort(colSums(as.matrix(dtm)), decreasing=TRUE)   
+head(freq, 14)
+```
 
 **An alternate view of term frequency:**   
 This will identify all terms that appear frequently (in this case, 50 or more times).  
@@ -169,49 +193,80 @@ findFreqTerms(dtm, lowfreq=50)   # Change "50" to whatever is most appropriate f
 ```{r}
 library(ggplot2)   
 wf <- data.frame(word=names(freq), freq=freq)   
-p <- ggplot(subset(wf, freq>50), aes(word, freq))    
-p <- p + geom_bar(stat="identity")   
-p <- p + theme(axis.text.x=element_text(angle=45, hjust=1))   
+p <- ggplot(subset(wf, freq>50), aes(x=reorder(word, -freq), y= freq))    +
+     geom_bar(stat="identity")   +
+      theme(axis.text.x=element_text(angle=45, hjust=1))   
 p   
 ```
 
 # Relationships Between Terms
 ## Term Correlations
-See the description above for more guidance with correlations.
+If you have a term in mind that you have found to be particularly meaningful to your analysis, then you may find it helpful to identify the words that most highly correlate with that term.
 If words always appear together, then correlation=1.0.    
 
 ```{r}
 findAssocs(dtm, c("country" , "american"), corlimit=0.85) # specifying a correlation limit of 0.85
-findAssocs(dtms, "think", corlimit=0.70) # specifying a correlation limit of 0.95   
+```
+In this case, “country” and “american” were highly correlated with numerous other terms. Setting corlimit= to 0.85 prevented the list from being overly long. Feel free to adjust the corlimit= to any value you feel is necessary.
+ 
+```{r}
+findAssocs(dtms, "think", corlimit=0.70) # specifying a correlation limit of 0.95
 ```
  
 Change "country" & "american", or "think" to terms that actually appear in your texts.
-Also adjust the `corlimit= ` to any value you feel is necessary.
+
 
 ## Word Clouds!   
+Humans are generally strong at visual analytics. That is part of the reason that these have become so popular. What follows are a variety of alternatives for constructing word clouds with your text. 
+
 First load the package that makes word clouds in R.    
 
 ```{r}
 library(wordcloud)  
 ```
 
-Then play with wordclouds:)
+Plot the 100 most frequently used words.
 ```{r}
-dtms <- removeSparseTerms(dtm, 0.15) # Prepare the data (max 15% empty space)   
-freq <- colSums(as.matrix(dtm)) # Find word frequencies   
+set.seed(142)   
+wordcloud(names(freq), freq, min.freq=25)   
+```
+ 
+Note: The “set.seed() function just makes the configuration of the layout of the clouds consistent each time you plot them. You can omit that part if you are not concerned with preserving a particular layout.
+
+
+Then play with wordclouds - change the word occurrence minimum, add, color, rotate terms, etc. :)
+
+Plot the 100 most frequently occurring words with some color.
+```{r}
 dark2 <- brewer.pal(6, "Dark2")   
 wordcloud(names(freq), freq, max.words=100, rot.per=0.2, colors=dark2) 
 ```
  
 # Clustering by Term Similarity
 
-## Hierarchal Clustering   
+To do this well, you should always first remove a lot of the uninteresting or infrequent words. If you have not done so already, you can remove these with the following code.
 
 ```{r}
 dtms <- removeSparseTerms(dtm, 0.15) # This makes a matrix that is only 15% empty space.
+```
+
+## Hierarchal Clustering   
+First calculate distance between words & then cluster them according to similarity.
+
+```{r}
 library(cluster)   
 d <- dist(t(dtms), method="euclidian")   # First calculate distance between words
 fit <- hclust(d=d, method="complete")    # Also try: method="ward.D"   
+plot(fit, hang=-1)
+```
+
+Some people find dendrograms to be fairly clear to read. Others simply find them perplexing. Here, we can see two, three, four, five, six, seven, or many more groups that are identifiable in the dendrogram.
+
+*Helping to Read a Dendrogram*
+If you find dendrograms difficult to read, then there is still hope.
+To get a better idea of where the groups are in the dendrogram, you can also ask R to help identify the clusters. Here, I have arbitrarily chosen to look at five clusters, as indicated by the red boxes. If you would like to highlight a different number of groups, then feel free to change the code accordingly.
+
+```{r}
 plot.new()
 plot(fit, hang=-1)
 groups <- cutree(fit, k=6)   # "k=" defines the number of clusters you are using   
@@ -219,9 +274,9 @@ rect.hclust(fit, k=6, border="red") # draw dendogram with red borders around the
 ```
 
 
-
 ## K-means clustering  
-Run the install.packages("fpc") command if you have not done so already above and attach the library
+The k-means clustering method will attempt to cluster words into a specified number of groups (in this case 2), such that the sum of squared distances between individual words and one of the group centers. You can change the number of groups you seek by changing the number specified within the kmeans() command.
+Run the install.packages("fpc") command if you have not done so already above and attach both the fpc and cluster library
 ```{r}
 library(fpc)   
 library(cluster)  
@@ -236,6 +291,8 @@ clusplot(as.matrix(d), kfit$cluster, color=T, shade=T, labels=2, lines=0,
          main = "Clustering of terms in Trump speeches")  
 ```
 
-# Improve, Reuse and Enjoy
+
+# Experiment, Reuse and Enjoy
 Good job! You made it to the end :) 
-Adapt and apply this script to a text of your choice! 
+To learn more about text mining specifically, or data mining in general, there is an [online course](https://togaware.com/onepager/) by Graham Williams, author of [Data Mining with Rattle and R: The Art of Excavating Data for Knowledge Discovery](https://www.amazon.com/gp/product/1441998896/ref=as_li_qf_sp_asin_tl?ie=UTF8&tag=togaware-20&linkCode=as2&camp=217145&creative=399373&creativeASIN=1441998896). Quite a lot of the material above was initially derived from his “Text Mining” segment.
+
